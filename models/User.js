@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const { Thought } = require('./Thought')
 // Schema to create User model
 const userSchema = new Schema(
   {
@@ -18,7 +18,7 @@ const userSchema = new Schema(
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
 
     },
-    thoughts: [{},],
+    thoughts: [Thought],
     friends: [{},],
   },
   {
