@@ -10,12 +10,13 @@ module.exports = {
   
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No post with that ID' })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
+    .select('-__v')
+    .then((user) =>
+      !user
+        ? res.status(404).json({ message: 'No user with that ID' })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
   },
   // create a new post
   createUser(req, res) {
@@ -25,11 +26,34 @@ module.exports = {
   },
 
   updateUser(req, res) {
-    User.findOneAndUpdate()
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with this id!' })
+          : res.json(user)
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 
   deleteUser(req, res) {
-    User.deleteOne()
+    // User.findOneAndRemove({ _id: req.params.userId })
+    //   .then((user) =>
+    //     !user
+    //       ? res.status(404).json({ message: 'No video with this id!' })
+    //       : User.findOneAndUpdate(
+    //           { videos: req.params.userId },
+    //           { $pull: { videos: req.params.videoId } },
+    //           { new: true }
+    //         )
+    //   )
+    //   .catch((err) => res.status(500).json(err));
   },
 
   addFriend(req,res) {

@@ -18,7 +18,12 @@ const userSchema = new Schema(
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
 
     },
-    thoughts: [Thought],
+    thoughts: [
+      { 
+      type: Schema.Types.ObjectId, 
+      ref: 'thought',
+   }
+  ],
     friends: [{},],
   },
   {
@@ -32,9 +37,7 @@ const userSchema = new Schema(
 );
 
 userSchema
-.virtual('friendCount')
-// Getter
-.get(function () {
+.virtual('friendCount').get(function () {
   return this.friends;
 });
 
