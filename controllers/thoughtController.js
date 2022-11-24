@@ -50,7 +50,7 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No Thought with this id!' })
-          : res.json(video)
+          : res.json(thought)
       )
       .catch((err) => {
         console.log(err);
@@ -94,7 +94,7 @@ module.exports = {
   },
 
   deleteReaction(req,res) {
-    Thoguht.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }

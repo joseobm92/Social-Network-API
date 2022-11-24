@@ -86,7 +86,9 @@ const usernames = [
     'suegra@gmail.com',
     'laureano@mail.com',
     'bebe@gmail.com',
-    'mari@gmail.com'
+    'mari@gmail.com',
+    'modric@gmail.com',
+    'espana@mail.net'
   ]
   
   const users = [];

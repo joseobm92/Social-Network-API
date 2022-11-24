@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 module.exports = {
 
@@ -43,17 +43,14 @@ module.exports = {
   },
 
   deleteUser(req, res) {
-    // User.findOneAndRemove({ _id: req.params.userId })
-    //   .then((user) =>
-    //     !user
-    //       ? res.status(404).json({ message: 'No video with this id!' })
-    //       : User.findOneAndUpdate(
-    //           { videos: req.params.userId },
-    //           { $pull: { videos: req.params.videoId } },
-    //           { new: true }
-    //         )
-    //   )
-    //   .catch((err) => res.status(500).json(err));
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+      )
+      .then(() => res.json({ message: 'User and associated thoughts deleted!' }))
+      .catch((err) => res.status(500).json(err));
   },
 
   addFriend(req,res) {
