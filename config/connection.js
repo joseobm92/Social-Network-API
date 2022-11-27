@@ -6,9 +6,10 @@
 // });
 
 // module.exports = mongoose.connect
+
 const { connect, connection } = require('mongoose');
 
-connect('mongodb://localhost/usersPosts', {
+connect('mongodb://localhost/socialMedia', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

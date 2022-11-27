@@ -15,6 +15,7 @@ const userSchema = new Schema(
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
 
     },
@@ -24,7 +25,10 @@ const userSchema = new Schema(
       ref: 'thought',
    }
   ],
-    friends: [{},],
+    friends: [ { 
+      type: Schema.Types.ObjectId, 
+      ref: 'user',
+   }],
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
@@ -36,9 +40,8 @@ const userSchema = new Schema(
   }
 );
 
-userSchema
-.virtual('friendCount').get(function () {
-  return this.friends;
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
 });
 
 // Initialize our User model
