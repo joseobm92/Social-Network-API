@@ -1,6 +1,6 @@
 const { Schema, Types } = require('mongoose');
 // const { Reaction } = require('./Reaction')
-// Schema to create User model
+// Schema to create Reaction model
 const reactionSchema = new Schema(
   {
     reactionId: { 
@@ -34,7 +34,7 @@ const reactionSchema = new Schema(
   }
 );
 
-// Initialize our User model
+// Initialize our Reaction model
 // const Reaction = model('reaction', reactionSchema);
 
 module.exports = reactionSchema;
